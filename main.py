@@ -30,7 +30,8 @@ def checking():
     watermark_image.show()
 
 
-def quit():
+def quiting():
+
     window.destroy()
 
 
@@ -74,7 +75,7 @@ upload_button.grid(row=1, column=1, columnspan=2)
 checking_button = Button(text="Check", width=14, command=checking)
 checking_button.grid(row=7, column=1)
 
-save_button = Button(text="Save and quit", width=14, command=quit)
+save_button = Button(text="Save and quit", width=14, command=quiting)
 save_button.grid(row=7, column=2)
 
 #Labels
