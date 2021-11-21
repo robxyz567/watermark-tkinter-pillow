@@ -5,6 +5,12 @@ from PIL import ImageFont
 from PIL import ImageDraw
 
 
+def color_chose(color):
+
+    global font_color
+    font_color = color
+
+
 def checking():
 
     watermark_image = image_copy.copy()
@@ -16,11 +22,6 @@ def checking():
     y = int(y_entry.get())
     y = (1 - y / 100) * image_size[1]
     font_size = int(font_size_entry.get())
-    font_color = font_color_entry.get()
-    if font_color == 'white':
-        font_color = (255, 255, 255)
-    elif font_color == 'black':
-        font_color = (0, 0, 0)
 
     draw = ImageDraw.Draw(watermark_image)
     font = ImageFont.truetype("arial.ttf", font_size)
@@ -52,49 +53,55 @@ window.title("Watermark")
 window.config(padx=50, pady=50)
 
 #Entries
-text_entry = Entry(width=35)
-text_entry.grid(row=2, column=1, columnspan=2)
+text_entry = Entry(width=43)
+text_entry.grid(row=2, column=1, columnspan=8)
 text_entry.focus()
+x_entry = Entry(width=43)
+x_entry.grid(row=3, column=1, columnspan=8)
+y_entry = Entry(width=43)
+y_entry.grid(row=4, column=1, columnspan=8)
+font_size_entry = Entry(width=43)
+font_size_entry.grid(row=5, column=1, columnspan=8)
 
-x_entry = Entry(width=35)
-x_entry.grid(row=3, column=1, columnspan=2)
 
-y_entry = Entry(width=35)
-y_entry.grid(row=4, column=1, columnspan=2)
+#Color_Buttons
+black_button = Button(width=3, bg='black', command=lambda: color_chose('black'))
+black_button.grid(row=6, column=1)
+white_button = Button(width=3, bg='white', command=lambda: color_chose('white'))
+white_button.grid(row=6, column=2)
+red_button = Button(width=3, bg='red', command=lambda: color_chose('red'))
+red_button.grid(row=6, column=3)
+orange_button = Button(width=3, bg='orange', command=lambda: color_chose('orange'))
+orange_button.grid(row=6, column=4)
+yellow_button = Button(width=3, bg='yellow', command=lambda: color_chose('yellow'))
+yellow_button.grid(row=6, column=5)
+green_button = Button(width=3, bg='green', command=lambda: color_chose('green'))
+green_button.grid(row=6, column=6)
+blue_button = Button(width=3, bg='blue', command=lambda: color_chose('blue'))
+blue_button.grid(row=6, column=7)
+purple_button = Button(width=3, bg='purple', command=lambda: color_chose('purple'))
+purple_button.grid(row=6, column=8)
 
-font_size_entry = Entry(width=35)
-font_size_entry.grid(row=5, column=1, columnspan=2)
-
-font_color_entry = Entry(width=35)
-font_color_entry.grid(row=6, column=1, columnspan=2)
-
-#Buttons
-upload_button = Button(text='Open', width=29, command=upload)
-upload_button.grid(row=1, column=1, columnspan=2)
-
-checking_button = Button(text="Check", width=14, command=checking)
-checking_button.grid(row=7, column=1)
-
-save_button = Button(text="Save and quit", width=14, command=quiting)
-save_button.grid(row=7, column=2)
+#Other_Buttons
+upload_button = Button(text='Open', width=36, command=upload)
+upload_button.grid(row=1, column=1, columnspan=8)
+checking_button = Button(text="Check", width=17, command=checking)
+checking_button.grid(row=7, column=1, columnspan=4)
+save_button = Button(text="Save&quit", width=17, command=quiting)
+save_button.grid(row=7, column=5, columnspan=4)
 
 #Labels
 logo_label = Label(text="IMAGE WATERMARK APP", font=('Arial', 12, "bold"))
-logo_label.grid(row=0, column=1, columnspan=2)
-
+logo_label.grid(row=0, column=1, columnspan=8)
 text_label = Label(text="Font text: ")
 text_label.grid(row=2, column=0)
-
 x_label = Label(text="Font x pos.: ")
 x_label.grid(row=3, column=0)
-
 y_label = Label(text="Font y pos.: ")
 y_label.grid(row=4, column=0)
-
 font_size_label = Label(text="Font size: ")
 font_size_label.grid(row=5, column=0)
-
-font_color_label = Label(text="Font color (black or white): ")
+font_color_label = Label(text="Font color: ")
 font_color_label.grid(row=6, column=0)
 
 
