@@ -17,11 +17,11 @@ def checking():
     image_size = watermark_image.size
 
     text = text_entry.get()
-    x = int(x_entry.get())
+    x = int(x_scale.get())
     x = x / 100 * image_size[0]
-    y = int(y_entry.get())
+    y = int(y_scale.get())
     y = (1 - y / 100) * image_size[1]
-    font_size = int(font_size_entry.get())
+    font_size = int(font_size_scale.get())
 
     draw = ImageDraw.Draw(watermark_image)
     font = ImageFont.truetype("arial.ttf", font_size)
@@ -56,13 +56,14 @@ window.config(padx=50, pady=50)
 text_entry = Entry(width=43)
 text_entry.grid(row=2, column=1, columnspan=8)
 text_entry.focus()
-x_entry = Entry(width=43)
-x_entry.grid(row=3, column=1, columnspan=8)
-y_entry = Entry(width=43)
-y_entry.grid(row=4, column=1, columnspan=8)
-font_size_entry = Entry(width=43)
-font_size_entry.grid(row=5, column=1, columnspan=8)
 
+#Scales
+x_scale = Scale(from_=0, to=100, orient=HORIZONTAL)
+x_scale.grid(row=3, column=1, columnspan=4)
+y_scale = Scale(from_=0, to=100, orient=HORIZONTAL)
+y_scale.grid(row=4, column=1, columnspan=4)
+font_size_scale = Scale(from_=0, to=100, orient=HORIZONTAL)
+font_size_scale.grid(row=5, column=1, columnspan=4)
 
 #Color_Buttons
 black_button = Button(width=3, bg='black', command=lambda: color_chose('black'))
