@@ -1,8 +1,8 @@
 from tkinter import *
-from tkinter import filedialog
-from PIL import Image
-from PIL import ImageFont
-from PIL import ImageDraw
+from files_module import File
+from display_module import Display
+from update_module import Update
+import os
 
 
 def color_chose(color):
@@ -13,8 +13,8 @@ def color_chose(color):
 
 def checking():
 
-    watermark_image = image_copy.copy()
-    image_size = watermark_image.size
+    watermark_parameters = []
+    image_size = file.image_size()
 
     text = text_entry.get()
     x = int(x_scale.get())
@@ -23,33 +23,38 @@ def checking():
     y = (1 - y / 100) * image_size[1]
     font_size = int(font_size_scale.get())
 
-    draw = ImageDraw.Draw(watermark_image)
-    font = ImageFont.truetype("arial.ttf", font_size)
-    draw.text((x, y), text, font_color, font=font)
+    watermark_parameters.append(x)
+    watermark_parameters.append(y)
+    watermark_parameters.append(font_size)
+    try:
+        watermark_parameters.append(font_color)
+    except NameError:
+        watermark_parameters.append('black')
+    watermark_parameters.append(text)
 
-    watermark_image.save("watermark.gif")
-    watermark_image.show()
+    Update(watermark_parameters)
+    file.image_convert()
+    watermark.update_watermark()
+    watermark.show_watermark()
 
 
 def quiting():
 
     window.destroy()
+    watermark.destroy()
+    os.remove('copy.jpg')
 
 
 def upload():
 
-    global image_copy
-
-    filepath = filedialog.askopenfilename()
-    image = Image.open(filepath)
-
-    image_copy = image.copy()
-    image_copy.save("copy.gif")
-    image_copy.show()
+    global file, watermark
+    file = File()
+    watermark = Display(file.image_size())
+    watermark.show_watermark()
 
 
 window = Tk()
-window.title("Watermark")
+window.title("Watermark Menu")
 window.config(padx=50, pady=50)
 
 #Entries
@@ -84,7 +89,7 @@ purple_button = Button(width=3, bg='purple', command=lambda: color_chose('purple
 purple_button.grid(row=6, column=8)
 
 #Other_Buttons
-upload_button = Button(text='Open', width=36, command=upload)
+upload_button = Button(text='Select a file to upload', width=36, command=upload)
 upload_button.grid(row=1, column=1, columnspan=8)
 checking_button = Button(text="Check", width=17, command=checking)
 checking_button.grid(row=7, column=1, columnspan=4)
