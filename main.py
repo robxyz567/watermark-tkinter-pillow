@@ -1,7 +1,7 @@
 from tkinter import *
 from files_module import File
 from display_module import Display
-from update_module import Update
+import update_module
 import os
 
 
@@ -32,7 +32,7 @@ def checking():
         watermark_parameters.append('black')
     watermark_parameters.append(text)
 
-    Update(watermark_parameters)
+    update_module.update(watermark_parameters)
     file.image_convert()
     watermark.update_watermark()
     watermark.show_watermark()
