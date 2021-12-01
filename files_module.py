@@ -18,8 +18,7 @@ class File:
 
     def image_size(self):
 
-        xy_size = (self.x_size, self.y_size)
-        return xy_size
+        return self.x_size, self.y_size
 
     def image_convert(self):
 
